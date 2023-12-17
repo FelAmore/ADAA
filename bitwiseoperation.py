@@ -13,10 +13,8 @@ def print_parking_lot_status(bitmask):
     for bit in binary_representation:
         if bit == '0':
             print('🟢', end=' ')
-            # print('\033[92m' + 'G' + '\033[0m', end=' ')  # Green for unoccupied
         else:
             print('🚗', end=' ')
-            # print('\033[91m' + 'R' + '\033[0m', end=' ')  # Red for occupied
     print()
     print(' 9  8  7  6  5  4  3  2  1  0')
 
