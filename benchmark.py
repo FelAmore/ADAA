@@ -1,5 +1,6 @@
 import time
 import numpy as np
+import matplotlib.pyplot as plt
 
 def find_parking_spot_linear(bitmask):
     for i in range(len(bin(bitmask)) - 2):  # Subtract 2 to exclude the '0b' prefix in binary representation
@@ -47,6 +48,16 @@ def main():
     print("Average Time for Bitwise Operation:", np.mean(bitwise_operation_times), "seconds")
 
     print("\nSo from the average time complexity, Bitwise Operation is more efficient than Linear Search")
+
+    # Visualize the results in graph form
+    labels = ['Trial 1', 'Trial 2', 'Trial 3', 'Trial 4', 'Trial 5']
+    plt.plot(labels, linear_search_times, label='Linear Search')
+    plt.plot(labels, bitwise_operation_times, label='Bitwise Operation')
+    plt.xlabel('Trial')
+    plt.ylabel('Average Time (seconds)')
+    plt.title('Comparison of Time Complexity')
+    plt.legend()
+    plt.show()
 
 if __name__ == "__main__":
     main()
