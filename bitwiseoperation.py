@@ -12,9 +12,9 @@ def print_parking_lot_status(bitmask):
     binary_representation = bin(bitmask)[2:]  # Convert to binary and remove the '0b' prefix
     for bit in binary_representation:
         if bit == '0':
-            print('🟢', end=' ')
+            print('🟢', end=' ') # unoccupied
         else:
-            print('🚗', end=' ')
+            print('🚗', end=' ') # occupied
     print()
     print(' 9  8  7  6  5  4  3  2  1  0')
 
