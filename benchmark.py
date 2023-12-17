@@ -1,40 +1,18 @@
-import time
+import timeit
 import numpy as np
 import matplotlib.pyplot as plt
 
-def find_parking_spot_linear(bitmask):
-    for i in range(len(bin(bitmask)) - 2):  # Subtract 2 to exclude the '0b' prefix in binary representation
-        if not (bitmask & (1 << i)):
-            return i  # Found an available parking spot
-    return -1  # No available parking spots
-
-def find_parking_spot_bitwise(bitmask):
-    if bitmask == 0:
-        return -1  # No available parking spots
-
-    position = 0
-    while bitmask & (1 << position):
-        position += 1
-
-    return position
+from linearsearch import find_parking_spot_linear, generate_random_parking_lot
+from bitwiseoperation import find_parking_spot_bitwise
 
 def benchmark_linear_search():
-    total_time = 0
-    for _ in range(5):
-        start_time = time.time()
-        find_parking_spot_linear(0b1010010110)
-        end_time = time.time()
-        total_time += (end_time - start_time)
-    return total_time / 5
+    parking_mask = generate_random_parking_lot()
+    return timeit.timeit(lambda: find_parking_spot_linear(parking_mask), number=100000)
 
 def benchmark_bitwise_operation():
-    total_time = 0
-    for _ in range(5):
-        start_time = time.time()
-        find_parking_spot_bitwise(0b1010010110)
-        end_time = time.time()
-        total_time += (end_time - start_time)
-    return total_time / 5
+    parking_mask = generate_random_parking_lot()
+    return timeit.timeit(lambda: find_parking_spot_bitwise(parking_mask), number=100000)
+
 
 def main():
     linear_search_times = [benchmark_linear_search() for _ in range(5)]
@@ -49,7 +27,7 @@ def main():
 
     print("\nSo from the average time complexity, Bitwise Operation is more efficient than Linear Search")
 
-    # Visualize the results in graph form
+    # Visualize the results
     labels = ['Trial 1', 'Trial 2', 'Trial 3', 'Trial 4', 'Trial 5']
     plt.plot(labels, linear_search_times, label='Linear Search')
     plt.plot(labels, bitwise_operation_times, label='Bitwise Operation')
@@ -61,4 +39,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
